@@ -1,0 +1,66 @@
+--SELECT CREATED - INTERVAL '730 00:00:00' DAY TO SECOND from "ORDER"
+
+--(TIMESTAMP '2020-01-01 01:01:01' - TIMESTAMP '2018-01-01 01:01:01')
+
+--SELECT cast(cast(CREATED - (400-ID/99) * INTERVAL '1 00:00:00' DAY TO SECOND as date) as timestamp)
+-- + (mod(cast(ID as double), 99.0) / 99.0) * INTERVAL '1 00:00:00' DAY TO SECOND
+-- from "ORDER"
+
+-- SELECT cast(cast(CREATED - (100-ID/99) * INTERVAL '1 00:00:00' DAY TO SECOND as date) as timestamp)
+--            + (mod(cast(ID as double), 99.0) / 99.0) * INTERVAL '1 00:00:00' DAY TO SECOND
+-- from "ORDER"
+-- order by 1 desc
+-- UPDATE "ORDER"
+-- SET CREATED = cast(cast(CREATED - (100-ID/99) * INTERVAL '1 00:00:00' DAY TO SECOND as date) as timestamp)
+--     + (mod(cast(ID as double), 99.0) / 99.0) * INTERVAL '1 00:00:00' DAY TO SECOND
+
+-- SELECT CREATED, STARTED, CREATED + 15 * INTERVAL '0 00:00:01' DAY TO SECOND
+--   FROM "ORDER"
+--  WHERE YEAR(STARTED) > 1;
+-- UPDATE "ORDER"
+--    SET STARTED = CREATED + 15 * INTERVAL '0 00:00:01' DAY TO SECOND
+--  WHERE YEAR(STARTED) > 1;
+
+-- SELECT CREATED, STARTED, FINISHED, PAYED
+-- FROM "ORDER"
+-- WHERE YEAR(STARTED) = 1;
+-- UPDATE "ORDER"
+-- SET FINISHED = CREATED + 5 * INTERVAL '0 00:00:01' DAY TO SECOND
+-- WHERE YEAR(STARTED) = 1;
+
+-- SELECT CREATED, STARTED, FINISHED, PAYED
+-- FROM "ORDER"
+-- WHERE YEAR(STARTED) > 1
+--   AND YEAR(PAYED) = 1;
+-- UPDATE "ORDER"
+-- SET FINISHED = CREATED + 25 * INTERVAL '0 00:00:01' DAY TO SECOND
+-- WHERE YEAR(STARTED) > 1
+--   AND YEAR(PAYED) = 1;
+
+-- SELECT CREATED, STARTED, FINISHED, PAYED
+-- FROM "ORDER"
+-- WHERE YEAR(PAYED) > 1;
+-- SELECT T1.ID AS ID, MAX(T3.COTIME) AS COTIME
+--   FROM "ORDER" T1
+--  INNER JOIN DETAIL T2
+--     ON T1.ID = T2.ORDER_ID
+--  INNER JOIN MENU T3
+--     ON T2.MENU_ITEM_ID = T3.ID
+--  WHERE YEAR(PAYED) > 1
+--  GROUP BY T1.ID;
+-- UPDATE "ORDER" T0
+-- SET FINISHED = STARTED
+--     + INTERVAL '0 00:00:01' DAY TO SECOND
+--                    * (SELECT MAX(T3.COTIME)
+--                       FROM "ORDER" T1
+--                                INNER JOIN DETAIL T2
+--                                           ON T1.ID = T2.ORDER_ID
+--                                INNER JOIN MENU T3
+--                                           ON T2.MENU_ITEM_ID = T3.ID
+--                       WHERE T0.ID = T1.ID
+--                       GROUP BY T1.ID)
+-- WHERE YEAR(PAYED) > 1;
+-- UPDATE "ORDER" T0
+-- SET PAYED = FINISHED
+--     + RAND() * INTERVAL '0 01:00:00' DAY TO SECOND
+-- WHERE YEAR(PAYED) > 1;
