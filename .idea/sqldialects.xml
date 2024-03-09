@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/_any.sql" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/serverini/src/main/kotlin/site/aleksa/hse/kpo/restorini/serverini/utils/SampleDatabase.kt" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/utilini/src/main/kotlin/site/aleksa/hse/kpo/restorini/utilini/_BackupDatabase.kt" dialect="H2" />
+  </component>
+</project>
